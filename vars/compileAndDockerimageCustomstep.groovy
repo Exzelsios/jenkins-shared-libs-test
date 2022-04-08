@@ -12,9 +12,9 @@ def call(String foldername, String dockerTag) {
       stage('Checkout Git') {
         git 'https://github.com/NovatecConsulting/technologyconsulting-containerexerciseapp.git'
       }
-      stage('Build Todo-Backend') {
+      stage("Build ${foldername}") {
         container('maven') {
-          dir("todobackend") {
+          dir("${foldername}") {
             sh 'mvn clean install'
           }
         }
@@ -22,7 +22,7 @@ def call(String foldername, String dockerTag) {
       stage('Build Docker Image Todo-Backend') {
         container('docker-builder') {
           // Wie taggen und wohin pushen?
-          sh 'podman build -f Dockerfile-todobackend -t technologyconsulting-containerexerciseapp-todobackend:jenkinsbuild1 .'
+          sh "podman build -f Dockerfile-${foldername} -t technologyconsulting-containerexerciseapp-${foldername}:${dockerTag} ."
         }
       }
     }
