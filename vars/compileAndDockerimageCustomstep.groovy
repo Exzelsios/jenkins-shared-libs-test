@@ -23,7 +23,7 @@ def call(String foldername, String dockerTag) {
           }
         }
       }
-      stage('Build Docker Image Todo-Backend') {
+      stage("Build Docker Image ${foldername}") {
         container('docker-builder') {
           // Wie taggen und wohin pushen?
           sh "podman build -f Dockerfile-${foldername} -t technologyconsulting-containerexerciseapp-${foldername}:${dockerTag} ."
