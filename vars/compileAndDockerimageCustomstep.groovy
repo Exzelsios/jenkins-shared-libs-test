@@ -5,12 +5,14 @@ def call(String foldername, String dockerTag) {
     containerTemplate(name: 'docker-builder', image: 'buildah/buildah', command: 'sleep', args: '99d', privileged: true)
   ]
   
-  podTemplate(containers: containers,
+  def label = "tb-test-${UUID.randomUUID().toString()}"
+
+  podTemplate(label: label, containers: containers,
     volumes: [
       hostPathVolume(hostPath: '/var/lib/containers', mountPath: '/var/lib/containers')
     ]
   ){
-    node() {
+    node(label) {
       stage('Checkout Git') {
         git 'https://github.com/NovatecConsulting/technologyconsulting-containerexerciseapp.git'
       }
