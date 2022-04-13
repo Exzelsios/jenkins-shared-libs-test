@@ -1,4 +1,4 @@
-// vars/mavenBuild.groovy
+// vars/buildPlugin.groovy
 def call(String foldername) {
   stage("Build ${foldername}") {
     container('maven') {

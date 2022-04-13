@@ -1,21 +1,9 @@
 // vars/dockerBuild.groovy
 def call(String dockerfile, String imageName, String dockerTag) {
-  def containers = [
-    containerTemplate(name: 'docker-builder', image: 'buildah/buildah', command: 'sleep', args: '99d', privileged: true)
-  ]
-  
-  podTemplate(containers: containers,
-    volumes: [
-      hostPathVolume(hostPath: '/var/lib/containers', mountPath: '/var/lib/containers')
-    ]
-  ){
-    node(POD_LABEL){
-      stage("Build Docker Image ${dockerfile}: ${imageName}") {
-        container('docker-builder') {
-          // Wie taggen und wohin pushen?
-          sh "podman build -f ${dockerfile} -t ${imageName}:${dockerTag} ."
-        }
-      }
+  stage("Build Docker Image ${dockerfile}: ${imageName}") {
+    container('docker-builder') {
+    // Wie taggen und wohin pushen?
+      sh "podman build -f ${dockerfile} -t ${imageName}:${dockerTag} ."
     }
   }
 }

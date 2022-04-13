@@ -1,0 +1,16 @@
+def myLib= library(
+    identifier: 'myLib@main', retriever: modernSCM
+    (
+        [
+            $class: 'GitSCMSource',
+            remote: 'https://github.com/Exzelsios/jenkins-shared-libs-test',
+            credentialsId: 'none'
+        ]
+    )
+)
+podTemplates(podTemplates.containers){
+  node(POD_LABEL) {
+      gitCheckout "https://github.com/NovatecConsulting/technologyconsulting-containerexerciseapp.git"
+      mavenBuild "todobackend"
+  }
+}

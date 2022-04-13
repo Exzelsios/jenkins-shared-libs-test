@@ -1,0 +1,23 @@
+def myLib= library(
+    identifier: 'myLib@main', retriever: modernSCM
+    (
+        [
+            $class: 'GitSCMSource',
+            remote: 'https://github.com/Exzelsios/jenkins-shared-libs-test',
+            credentialsId: 'none'
+        ]
+    )
+)
+podTemplate(containers: [
+  containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', command: 'sleep', args: '99d'),
+  containerTemplate(name: 'buildah', image: 'buildah/buildah', command: 'sleep', args: '99d', privileged: true),
+],
+volumes: [
+  hostPathVolume(hostPath: '/var/lib/containers', mountPath: '/var/lib/containers')
+]
+) {
+  node(POD_LABEL) {
+      gitCheckout 'https://github.com/NovatecConsulting/technologyconsulting-containerexerciseapp.git'
+      mavenBuild 'todobackend'
+  }
+}
