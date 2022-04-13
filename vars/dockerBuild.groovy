@@ -1,4 +1,4 @@
-// vars/buildPlugin.groovy
+// vars/dockerBuild.groovy
 def call(String dockerfile, String imageName, String dockerTag) {
   def containers = [
     containerTemplate(name: 'docker-builder', image: 'buildah/buildah', command: 'sleep', args: '99d', privileged: true)
