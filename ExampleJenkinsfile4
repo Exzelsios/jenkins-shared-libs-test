@@ -18,7 +18,7 @@ volumes: [
 ) {
   node(POD_LABEL) {
     gitCheckout 'https://github.com/NovatecConsulting/technologyconsulting-containerexerciseapp.git'
-    mavenBuild 'maven','todobackend'
-    dockerBuild 'docker-builder', 'Dockerfile-todobackend', 'tobitodobackend', 'v0.1'
+    mavenBuild 'maven', 'todobackend'
+    dockerBuild '', ''
   }
 }
