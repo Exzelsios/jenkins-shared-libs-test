@@ -1,7 +1,7 @@
 // vars/buildPlugin.groovy
-def call(String foldername) {
+def call(String containerName, String foldername) {
   stage("Build ${foldername}") {
-    container('maven') {
+    container("${containerName}") {
       dir("${foldername}") {
         sh 'mvn clean install'
       }
