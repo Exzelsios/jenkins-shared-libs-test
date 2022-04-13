@@ -6,7 +6,7 @@ def call(String foldername) {
   
   podTemplate(containers: containers
   ){
-    node() {
+    node(POD_LABEL) {
       stage("Build ${foldername}") {
         container('maven') {
           dir("${foldername}") {
