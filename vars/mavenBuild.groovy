@@ -6,12 +6,12 @@ def call(String foldername) {
   
   podTemplate(containers: containers
   ){
-      stage("Build ${foldername}") {
-        container('maven') {
-          dir("${foldername}") {
-            sh 'mvn clean install'
-          }
+    stage("Build ${foldername}") {
+      container('maven') {
+        dir("${foldername}") {
+          sh 'mvn clean install'
         }
+      }
     }
   }
 }
